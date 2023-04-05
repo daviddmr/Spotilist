@@ -5,9 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.study.spotilist.model.Playlist
 import com.study.spotilist.repository.PlaylistRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlaylistViewModel(private val repository: PlaylistRepository) : ViewModel() {
+@HiltViewModel
+class PlaylistViewModel @Inject constructor(
+    private val repository: PlaylistRepository
+) : ViewModel() {
 
     val playlists = MutableLiveData<List<Playlist>>()
 
