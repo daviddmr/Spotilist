@@ -1,17 +1,20 @@
 package com.study.spotilist.viewmodel
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.study.spotilist.model.Playlist
+import com.study.spotilist.repository.PlaylistRepository
+import kotlinx.coroutines.launch
 
-class PlaylistViewModel : ViewModel() {
+class PlaylistViewModel(private val repository: PlaylistRepository) : ViewModel() {
 
-    val title = MutableLiveData<String>()
+    val playlists = MutableLiveData<List<Playlist>>()
 
-    init {
-        Handler(Looper.getMainLooper()).postDelayed({
-            title.value = "Playlist Fragment!!!"
-        }, 1000L)
+    fun fetchPlaylists() {
+        viewModelScope.launch {
+            val result = repository.fetchAllPlaylist()
+            playlists.value = result
+        }
     }
 }
