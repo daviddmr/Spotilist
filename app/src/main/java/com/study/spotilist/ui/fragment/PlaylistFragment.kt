@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.study.spotilist.adapter.PlaylistAdapter
@@ -13,7 +14,7 @@ import com.study.spotilist.viewmodel.PlaylistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlaylistFragment : Fragment() {
+class PlaylistFragment : Fragment(), PlaylistAdapter.OnClickListener {
 
     companion object {
         const val TAG = "PlaylistFragment"
@@ -25,10 +26,10 @@ class PlaylistFragment : Fragment() {
     private val viewModel: PlaylistViewModel by viewModels()
     private lateinit var playlists: List<Playlist>
     private val adapter: PlaylistAdapter by lazy {
-        PlaylistAdapter(playlists)
+        PlaylistAdapter(playlists, this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentPlaylistBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,5 +49,9 @@ class PlaylistFragment : Fragment() {
 
     private fun setupAdapter() {
         binding.fragmentPlaylistRv.adapter = adapter
+    }
+
+    override fun onItemClicked(item: Playlist) {
+        Toast.makeText(context, "Item id: ${item.id}", Toast.LENGTH_LONG).show()
     }
 }

@@ -7,7 +7,14 @@ import com.study.spotilist.R
 import com.study.spotilist.databinding.ItemPlaylistBinding
 import com.study.spotilist.model.Playlist
 
-class PlaylistAdapter(private val list: List<Playlist>) : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+class PlaylistAdapter(
+    private val list: List<Playlist>,
+    private val listener: OnClickListener
+) : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+
+    interface OnClickListener {
+        fun onItemClicked(item: Playlist)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -22,6 +29,7 @@ class PlaylistAdapter(private val list: List<Playlist>) : RecyclerView.Adapter<P
             id.text = item.id
             name.text = item.name
             category.text = item.category
+            itemView.setOnClickListener { listener.onItemClicked(item) }
         }
     }
 
