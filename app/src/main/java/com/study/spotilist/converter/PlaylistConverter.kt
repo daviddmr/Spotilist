@@ -11,7 +11,7 @@ class PlaylistConverter @Inject constructor() : Function1<List<NWPlaylist>, List
                 it.id,
                 it.name,
                 it.category,
-                0
+                null
             )
         }
     }

@@ -1,13 +1,14 @@
 package com.study.spotilist.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.study.spotilist.adapter.PlaylistAdapter
 import com.study.spotilist.databinding.FragmentPlaylistBinding
+import com.study.spotilist.model.Playlist
 import com.study.spotilist.viewmodel.PlaylistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,10 @@ class PlaylistFragment : Fragment() {
 
     private lateinit var binding: FragmentPlaylistBinding
     private val viewModel: PlaylistViewModel by viewModels()
+    private lateinit var playlists: List<Playlist>
+    private val adapter: PlaylistAdapter by lazy {
+        PlaylistAdapter(playlists)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlaylistBinding.inflate(inflater, container, false)
@@ -36,7 +41,12 @@ class PlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.playlists.observe(viewLifecycleOwner) { playlists ->
-            Log.d(TAG, "Playlists: $playlists")
+            this.playlists = playlists
+            setupAdapter()
         }
+    }
+
+    private fun setupAdapter() {
+        binding.fragmentPlaylistRv.adapter = adapter
     }
 }
