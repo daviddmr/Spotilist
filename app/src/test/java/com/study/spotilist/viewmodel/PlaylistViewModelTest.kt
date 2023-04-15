@@ -5,6 +5,7 @@ import com.study.spotilist.model.Playlist
 import com.study.spotilist.repository.PlaylistRepository
 import com.study.spotilist.utils.BaseUnitTest
 import com.study.spotilist.utils.getValueForTest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
@@ -54,7 +55,9 @@ class PlaylistViewModelTest : BaseUnitTest() {
 
     private suspend fun mockSuccess(): PlaylistViewModel {
         whenever(repository.fetchAllPlaylist()).then {
-            playlists
+            flow {
+                emit(playlists)
+            }
         }
 
         return PlaylistViewModel(repository)

@@ -1,5 +1,6 @@
 package com.study.spotilist.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,8 +19,9 @@ class PlaylistViewModel @Inject constructor(
 
     fun fetchPlaylists() {
         viewModelScope.launch {
-            val result = repository.fetchAllPlaylist()
-            playlists.value = result
+            repository.fetchAllPlaylist().collect {
+                playlists.value = it
+            }
         }
     }
 }
