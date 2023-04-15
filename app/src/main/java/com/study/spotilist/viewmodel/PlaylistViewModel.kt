@@ -15,12 +15,14 @@ class PlaylistViewModel @Inject constructor(
     private val repository: PlaylistRepository
 ) : ViewModel() {
 
-    val playlists = MutableLiveData<List<Playlist>>()
+    private val _playlists = MutableLiveData<List<Playlist>>()
+    val playlists: LiveData<List<Playlist>>
+        get() = _playlists
 
     fun fetchPlaylists() {
         viewModelScope.launch {
             repository.fetchAllPlaylist().collect {
-                playlists.value = it
+                _playlists.value = it
             }
         }
     }
