@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/playlistFragment">
+    app:startDestination="@id/rx_example_fragment">
 
     <fragment
         android:id="@+id/playlistFragment"
@@ -24,4 +24,9 @@
         android:id="@+id/playlistDetailFragment"
         android:name="com.study.spotilist.ui.fragment.PlaylistDetailFragment"
         android:label="PlaylistDetailFragment" />
+
+    <fragment
+        android:id="@+id/rx_example_fragment"
+        android:name="com.study.spotilist.ui.fragment.RxExampleFragment"
+        android:label="RxExampleFragment" />
 </navigation>
