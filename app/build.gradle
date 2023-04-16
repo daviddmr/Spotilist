@@ -71,6 +71,9 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.1.6"
     implementation "io.reactivex.rxjava3:rxandroid:3.0.2"
 
+    //RxJava Call Adapter
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+
     //Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
